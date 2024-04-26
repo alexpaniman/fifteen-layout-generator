@@ -6,3 +6,5 @@
 
 # in case someone opens project in idea
 .idea/
+
+.direnv/

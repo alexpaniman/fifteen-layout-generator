@@ -1,0 +1,73 @@
+* Fifteen layout generator
+Generates and visualizes sample game layout of custom fifteen-like game made for microcontroller course.
+
+** Building
+
+*** With nix
+
+If you are using nixos or nix package manager in general --- you are in luck, this package provides convenient flake that should take care of building and running this project properly.
+#+begin_src shell
+  nix run 'git+https://github.com/alexpaniman/fifteen-layout-generator?submodules=1' --impure
+#+end_src shell
+
+This one command should do everything from installing dependencies to building and running (God I love nix)... Enjoy! Also, for impurity of this flake blame Nvidia and video drivers in general, not me :)
+
+Should also be noted that you can install and use nix everywhere, not just on nixos, so running script from https://nixos.org/download/ might be a good and simple option to run this project.
+
+
+*** Prerequisites
+You need to have:
+
++ ~Clang~ 
++ ~CMake~
++ ~glew~
++ ~glfw~
+
+installed on your system.
+
+On ~Arch Linux~ you can install all of them with:
+#+begin_src shell
+  pacman -Sy --needed cmake ninja clang glew glfw
+#+end_src
+
+On ~Ubuntu~ you can install them with:
+
+#+begin_src shell
+  sudo apt-get install -y cmake ninja-build clang libglew-dev libglfw3-dev
+#+end_src
+
+If you are using other distros, use your package 
+manager to look up package names, and install them.
+
+This may or may not work on ~Windows~ or ~MacOS~, but
+hasn't been tested on either.
+
+
+*** Installation
+*Clone this repository:*
+
+#+begin_src shell
+  git clone git@github.com:alexpaniman/fifteen-layout-generator.git --recursive
+#+end_src
+
+*Then, create build directory and configure:*
+
+#+begin_src shell
+  mkdir -p build
+  cd build
+  cmake .. -DCMAKE_CXX_COMPILER=clang++ -G Ninja -DCMAKE_BUILD_TYPE=Release
+  # Make sure that you use recent clang!
+  # Projects uses some pretty new features.
+#+end_src
+
+Optionally you can use ~-DCMAKE_EXPORT_COMPILE_COMMANDS=ON~ if you
+want to import this project with ~clangd~ language server.
+
+Now build and run (you should still be in ~build~ directory, which is very important since this projects searches for shaders in current directory):
+#+begin_src shell
+  ninja
+  ./solver
+
+  # Also you can run text-only solver
+  ./text-solver
+#+end_src
