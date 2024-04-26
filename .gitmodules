@@ -1,0 +1,3 @@
+[submodule "glniman"]
+	path = glniman
+	url = git@github.com:alexpaniman/glniman.git
